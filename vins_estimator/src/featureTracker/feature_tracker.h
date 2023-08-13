@@ -24,6 +24,8 @@
 #include "camodocal/camera_models/PinholeCamera.h"
 #include "../estimator/parameters.h"
 #include "../utility/tic_toc.h"
+#include <opencv2/imgproc/types_c.h>
+#include <opencv2/imgproc/imgproc_c.h>
 
 using namespace std;
 using namespace camodocal;

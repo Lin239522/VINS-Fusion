@@ -179,23 +179,41 @@ void PoseGraph::addKeyFrame(KeyFrame* cur_kf, bool flag_detect_loop)
     path[sequence_cnt].poses.push_back(pose_stamped);
     path[sequence_cnt].header = pose_stamped.header;
 
+    // if (SAVE_LOOP_PATH)
+    // {
+    //     ofstream loop_path_file(VINS_RESULT_PATH, ios::app);
+    //     loop_path_file.setf(ios::fixed, ios::floatfield);
+    //     loop_path_file.precision(0);
+    //     loop_path_file << cur_kf->time_stamp * 1e9 << ",";
+    //     loop_path_file.precision(5);
+    //     loop_path_file  << P.x() << ","
+    //           << P.y() << ","
+    //           << P.z() << ","
+    //           << Q.w() << ","
+    //           << Q.x() << ","
+    //           << Q.y() << ","
+    //           << Q.z() << ","
+    //           << endl;
+    //     loop_path_file.close();
+    // }
+
+    // HACK
     if (SAVE_LOOP_PATH)
     {
-        ofstream loop_path_file(VINS_RESULT_PATH, ios::app);
+        ofstream loop_path_file("/home/wll/ROS_ws/VINS_Fusion_ws/output/VINS_FUSION_result.csv", ios::app);
+	    double turetime = cur_kf->time_stamp;
         loop_path_file.setf(ios::fixed, ios::floatfield);
-        loop_path_file.precision(0);
-        loop_path_file << cur_kf->time_stamp * 1e9 << ",";
-        loop_path_file.precision(5);
-        loop_path_file  << P.x() << ","
-              << P.y() << ","
-              << P.z() << ","
-              << Q.w() << ","
-              << Q.x() << ","
-              << Q.y() << ","
-              << Q.z() << ","
-              << endl;
+        loop_path_file << turetime << " ";
+        loop_path_file  << P.x() << " "
+              << P.y() << " "
+              << P.z() << " "
+              << Q.x() << " "
+              << Q.y() << " "
+              << Q.z() << " "
+              << Q.w() << endl;
         loop_path_file.close();
     }
+
     //draw local connection
     if (SHOW_S_EDGE)
     {
